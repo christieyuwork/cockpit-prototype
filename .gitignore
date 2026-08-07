@@ -1,5 +1,5 @@
-# Dependencies
-node_modules
+# Dependencies (must stay untracked — committed Windows bins break Vercel/Linux exec)
+/node_modules/
 
 # Build
 dist
