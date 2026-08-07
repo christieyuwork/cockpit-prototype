@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "FWC26";
+  src: url("/fonts/fwc26/FWC26-NormalMedium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FWC26";
+  src: url("/fonts/fwc26/FWC26-NormalBold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FWC26";
+  src: url("/fonts/fwc26/FWC26-NormalBlack.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FIFA Sans";
+  src: url("/fonts/fifa-sans/FIFASans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FIFA Sans";
+  src: url("/fonts/fifa-sans/FIFASans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FIFA Sans";
+  src: url("/fonts/fifa-sans/FIFASans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FIFA Sans";
+  src: url("/fonts/fifa-sans/FIFASans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

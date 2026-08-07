@@ -1,0 +1,44 @@
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-white-75: rgba(255, 255, 255, 0.75);
+  --color-white-15: rgba(255, 255, 255, 0.15);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-white-25: rgba(255, 255, 255, 0.25);
+  --color-black-15: rgba(0, 0, 0, 0.15);
+  --color-black-35: rgba(0, 0, 0, 0.35);
+  --color-black-55: rgba(0, 0, 0, 0.55);
+  --color-black-75: rgba(0, 0, 0, 0.75);
+
+  --color-accent: #eeff42;
+  --color-green-30: #afea00;
+  --color-green-50: #00c852;
+  --color-semantic-green: #01e676;
+  --color-blue-10: #64ffda;
+  --color-red-10: #ff9d80;
+  --color-semantic-red: #ff7246;
+  --color-semantic-orange: #f6ac4c;
+  --color-lenovo-red: #e1251b;
+  --color-midnight: #03122b;
+  --color-twitter-blue: #1d9bf0;
+  --color-twitter-grey: #536471;
+
+  --city-mia: #f06292;
+  --city-la: #f4ff81;
+  --city-sea: #1ee9b6;
+  --city-phl: #82b1ff;
+
+  --font-display: "FWC26", "Noto Sans", sans-serif;
+  --font-body: "Noto Sans", "FIFA Sans", sans-serif;
+  --font-ui: "Noto Sans", "FIFA Sans", sans-serif;
+  /* Screen size-12: use px — CSS `12pt` renders ~16px and looks oversized */
+  --font-size: 12px;
+
+  --shadow-acrylic: 0 8px 36px rgba(0, 0, 0, 0.15);
+  --radius-card: 24px;
+  --radius-panel: 16px;
+  --radius-pill: 9999px;
+  --topbar-h: 54px;
+  --sidebar-w: 54px;
+  --notif-w: 500px;
+}
