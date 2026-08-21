@@ -271,9 +271,8 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <div className="panel__scroll scroll-area">
               <div className="ai-label">
                 <span className="ai-label__icon" aria-hidden />
-                <span>AI text</span>
+                <span>{report.title}</span>
               </div>
-              <div className="report-heading">{report.title}</div>
               <p>
                 {reportCity === 'All cities'
                   ? report.body

@@ -231,12 +231,6 @@
   color: transparent;
 }
 
-.report-heading {
-  margin: 4px 0 8px;
-  font-weight: 700;
-  font-size: 13px;
-}
-
 .report-chip,
 .video-card {
   display: flex;
