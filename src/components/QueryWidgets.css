@@ -50,8 +50,14 @@
 
 .qw-source__icon {
   flex-shrink: 0;
-  font-size: 11px;
-  font-weight: 700;
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+}
+
+.qw-source__icon img {
+  width: 12px;
+  height: 12px;
 }
 
 .qw-source__body {
@@ -158,7 +164,15 @@
 }
 
 .qw-flight__tab-icon {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
   opacity: 0.85;
+}
+
+.qw-flight__tab-icon img {
+  width: 16px;
+  height: 16px;
 }
 
 .qw-flight__body {

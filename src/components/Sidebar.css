@@ -33,6 +33,15 @@
   padding: 16px;
 }
 
+.sidebar .icon {
+  opacity: 0.75;
+}
+
+.sidebar__btn.is-active .icon {
+  opacity: 1;
+  filter: var(--icon-filter-accent);
+}
+
 .sidebar__btn--bottom {
   height: auto;
   padding: 16px;

@@ -1,0 +1,345 @@
+.new-view__scrim {
+  position: fixed;
+  inset: var(--topbar-h) 0 0 var(--sidebar-w);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Scoped so the darker scrim background wins over the shared .acrylic-card rule. */
+.new-view__scrim .new-view {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 685px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 48px;
+  background: var(--color-black-55);
+}
+
+.new-view__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 0;
+}
+
+.new-view__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.new-view__field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: var(--color-white-25);
+  backdrop-filter: blur(90px);
+  -webkit-backdrop-filter: blur(90px);
+  box-shadow: var(--shadow-acrylic);
+}
+
+.new-view__field--button {
+  width: 100%;
+}
+
+.new-view__field-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.new-view__field-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.new-view__field input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.new-view__field input::placeholder {
+  color: var(--color-white-75);
+}
+
+.new-view__section {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.new-view__select {
+  position: relative;
+}
+
+.new-view__select-value {
+  flex: 1;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.new-view__select-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(10, 14, 18, 0.96);
+  border: 1px solid var(--color-white-15);
+  box-shadow: var(--shadow-acrylic);
+}
+
+.new-view__select-list button {
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.new-view__select-list button:hover,
+.new-view__select-list button.is-active {
+  background: rgba(238, 255, 66, 0.14);
+  color: var(--color-accent);
+}
+
+.new-view__users {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 16px;
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.new-view__users-label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.new-view__picker {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 16px;
+  border-radius: var(--radius-panel);
+  background: var(--color-black-35);
+}
+
+.new-view__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: var(--color-white-15);
+  backdrop-filter: blur(90px);
+  -webkit-backdrop-filter: blur(90px);
+  box-shadow: var(--shadow-acrylic);
+}
+
+.new-view__search input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-white);
+  font-size: 14px;
+}
+
+.new-view__search input::placeholder {
+  color: var(--color-white);
+}
+
+.new-view__results {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 120px;
+  max-height: 190px;
+  padding: 12px 8px 0 24px;
+}
+
+.new-view__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.new-view__user input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.new-view__checkbox {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--color-semantic-green);
+  background: rgba(1, 230, 118, 0.12);
+}
+
+.new-view__user input:checked + .new-view__checkbox {
+  background: var(--color-semantic-green);
+}
+
+.new-view__user input:checked + .new-view__checkbox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--color-black);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.new-view__user input:focus-visible + .new-view__checkbox {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.new-view__user-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.new-view__user-text b {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.new-view__user-text em {
+  font-style: normal;
+  color: var(--color-white-75);
+}
+
+.new-view__empty {
+  color: var(--color-white-75);
+  font-style: italic;
+}
+
+.new-view__count {
+  align-self: flex-end;
+  color: var(--color-white-75);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.new-view__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.new-view__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px 0 4px;
+  border-radius: 16px;
+  background: var(--color-white-15);
+  white-space: nowrap;
+}
+
+.new-view__chip .icon-box {
+  width: 18px;
+  height: 18px;
+}
+
+.new-view__chip .icon-box .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.new-view__chip button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.new-view__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.new-view__actions.is-edit {
+  justify-content: space-between;
+}
+
+.new-view__delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-semantic-red);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.new-view__delete img {
+  width: 14px;
+  height: 16px;
+}
+
+.new-view__delete:hover {
+  color: var(--color-red-10);
+}
+
+.new-view__cancel {
+  color: var(--color-white-75);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.new-view__cancel:hover {
+  color: var(--color-white);
+}

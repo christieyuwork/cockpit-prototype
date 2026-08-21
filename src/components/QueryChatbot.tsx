@@ -28,6 +28,8 @@ type ChatMessage = {
 type QueryChatbotProps = {
   starredWidgetIds: string[]
   onToggleStarWidget: (widget: StarableWidget) => void
+  /** Deep-link: instantly show welcome + reply for this intent (no typing delay). */
+  seedIntent?: string | null
 }
 
 const WELCOME: ChatMessage = {
@@ -49,13 +51,52 @@ const INTENT_LOCATION: Partial<Record<Exclude<QueryIntent, 'general'>, string>> 
   issues: 'MIA',
 }
 
-export function QueryChatbot({ starredWidgetIds, onToggleStarWidget }: QueryChatbotProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME])
+const SEEDABLE_INTENTS: Exclude<QueryIntent, 'general'>[] = [
+  'risk',
+  'flights',
+  'issues',
+  'matchday',
+]
+
+function promptForIntent(intent: Exclude<QueryIntent, 'general'>): string {
+  const match = QUERY_SUGGESTIONS.find((s) => detectQueryIntent(s) === intent)
+  return match ?? QUERY_SUGGESTIONS[0]
+}
+
+function seededMessages(intentRaw: string | null | undefined): ChatMessage[] {
+  const intent = SEEDABLE_INTENTS.find((i) => i === intentRaw)
+  if (!intent) return [WELCOME]
+  const prompt = promptForIntent(intent)
+  return [
+    WELCOME,
+    { id: 'seed-user', role: 'user', text: prompt },
+    {
+      id: 'seed-assistant',
+      role: 'assistant',
+      text: mockAssistantReply(prompt, intent),
+      intent,
+      prompt,
+      timestamp: '15 Jun 14:22',
+    },
+  ]
+}
+
+export function QueryChatbot({
+  starredWidgetIds,
+  onToggleStarWidget,
+  seedIntent = null,
+}: QueryChatbotProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>(() => seededMessages(seedIntent))
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
   const listRef = useRef<HTMLDivElement>(null)
   const timerRef = useRef<number | null>(null)
   const lastPromptRef = useRef('')
+
+  useEffect(() => {
+    const intent = SEEDABLE_INTENTS.find((i) => i === seedIntent)
+    if (intent) lastPromptRef.current = promptForIntent(intent)
+  }, [seedIntent])
 
   useEffect(() => {
     const el = listRef.current
@@ -145,7 +186,11 @@ export function QueryChatbot({ starredWidgetIds, onToggleStarWidget }: QueryChat
                           }
                         >
                           <span className="icon-box">
-                            <img className="icon" src="/assets/star.svg" alt="" />
+                            <img
+                              className="icon"
+                              src={isStarred ? '/assets/icons/starred.svg' : '/assets/icons/star.svg'}
+                              alt=""
+                            />
                           </span>
                         </button>
                       }

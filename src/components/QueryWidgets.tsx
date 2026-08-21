@@ -23,7 +23,7 @@ function SourceChip({ source }: { source: SourceLink; emphasize?: boolean }) {
       title={source.meta}
     >
       <span className="qw-source__icon" aria-hidden>
-        ↗
+        <img src="/assets/icons/open-in.svg" alt="" width={12} height={12} />
       </span>
       <span className="qw-source__body">
         <strong>{source.label}</strong>
@@ -71,7 +71,12 @@ function FlightWidgets({ items }: { items: FlightCard[] }) {
         <article key={flight.id} className={`qw-flight qw-flight--${flight.statusTone}`}>
           <div className="qw-flight__tab">
             <span className="qw-flight__tab-icon" aria-hidden>
-              {flight.kind === 'referees' ? '▣' : '⚑'}
+              <img
+                src={flight.kind === 'referees' ? '/assets/icons/referee.svg' : '/assets/icons/flight.svg'}
+                alt=""
+                width={16}
+                height={16}
+              />
             </span>
             <span>{flight.label}</span>
           </div>
@@ -152,7 +157,7 @@ function MatchWidget({ data }: { data: MatchWidgetData }) {
             <a className="match-id" href={`#match/${data.matchId}`} onClick={(e) => e.preventDefault()}>
               {data.matchId}
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </a>
           </div>
@@ -229,7 +234,7 @@ function MatchWidget({ data }: { data: MatchWidgetData }) {
               <a className="match-id" href={`#match/${row.matchId}`} onClick={(e) => e.preventDefault()}>
                 {row.matchId}
                 <span className="icon-box">
-                  <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                  <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
                 </span>
               </a>
               <span className="qw-match__related-meta">

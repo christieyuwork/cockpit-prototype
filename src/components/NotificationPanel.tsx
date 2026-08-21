@@ -25,6 +25,10 @@ type NotificationPanelProps = {
   onTabChange: (tab: Tab) => void
   recentDotsCleared: boolean
   onRecentDotsCleared: () => void
+  /** Deep-link: expand this Recent/Starred card id on mount. */
+  initialExpandId?: string | null
+  /** Deep-link: seed Query with this intent response (risk|flights|issues|matchday). */
+  seedIntent?: string | null
 }
 
 type RecentItem =
@@ -274,7 +278,11 @@ function StarButton({
       onClick={onClick}
     >
       <span className="icon-box">
-        <img className="icon" src="/assets/star.svg" alt="" />
+        <img
+          className="icon"
+          src={active ? '/assets/icons/starred.svg' : '/assets/icons/star.svg'}
+          alt=""
+        />
       </span>
     </button>
   )
@@ -290,7 +298,7 @@ function AccordionToggle({ open, onClick }: { open: boolean; onClick: () => void
     >
       <span>{open ? 'Hide details' : 'View details'}</span>
       <span className="icon-box">
-        <img className="icon" src="/assets/chevron-down.svg" alt="" />
+        <img className="icon" src="/assets/icons/arrow-down.svg" alt="" />
       </span>
     </button>
   )
@@ -301,6 +309,8 @@ export function NotificationPanel({
   onTabChange,
   recentDotsCleared,
   onRecentDotsCleared,
+  initialExpandId = null,
+  seedIntent = null,
 }: NotificationPanelProps) {
   const tabs: Tab[] = ['Recent', 'Starred', 'Query']
   const [filter, setFilter] = useState('All notifications')
@@ -309,8 +319,12 @@ export function NotificationPanel({
   const [pendingUnstar, setPendingUnstar] = useState<Set<string>>(() => new Set())
   const [starToast, setStarToast] = useState<{ undoId: string } | null>(null)
   const toastTimerRef = useRef<number | null>(null)
-  const [expandedRecent, setExpandedRecent] = useState<string | null>(null)
-  const [expandedStarred, setExpandedStarred] = useState<string | null>(null)
+  const [expandedRecent, setExpandedRecent] = useState<string | null>(() =>
+    initialExpandId && initialExpandId.startsWith('r') ? initialExpandId : null,
+  )
+  const [expandedStarred, setExpandedStarred] = useState<string | null>(() =>
+    initialExpandId && initialExpandId.startsWith('s') ? initialExpandId : null,
+  )
 
   const filterOptions = FILTERS[tab]
 
@@ -536,7 +550,7 @@ export function NotificationPanel({
               <button type="button" className="chip" onClick={() => setFilterOpen((v) => !v)}>
                 {filter}
                 <span className="icon-box">
-                  <img className="icon" src="/assets/chevron-down.svg" alt="" />
+                  <img className="icon" src="/assets/icons/arrow-down.svg" alt="" />
                 </span>
               </button>
               {filterOpen ? (
@@ -571,6 +585,7 @@ export function NotificationPanel({
             <QueryChatbot
               starredWidgetIds={starredWidgetIds}
               onToggleStarWidget={toggleStarWidget}
+              seedIntent={seedIntent}
             />
           </div>
 
@@ -607,7 +622,7 @@ export function NotificationPanel({
                           <span className="notif__match-id">
                             M37
                             <span className="icon-box">
-                              <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                              <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
                             </span>
                           </span>
                         </div>
@@ -731,7 +746,7 @@ export function NotificationPanel({
                               <span className="notif__match-id">
                                 {item.matchId}
                                 <span className="icon-box">
-                                  <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                                  <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
                                 </span>
                               </span>
                             </div>

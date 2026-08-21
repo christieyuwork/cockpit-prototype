@@ -29,11 +29,16 @@
   --city-phl: #82b1ff;
 
   --font-display: "FWC26", "Noto Sans", sans-serif;
+  --font-display-wwc: "FWWC2027BrasilRC", "FWC26", "Noto Sans", sans-serif;
   --font-body: "Noto Sans", "FIFA Sans", sans-serif;
   --font-ui: "Noto Sans", "FIFA Sans", sans-serif;
+  --color-title: var(--color-accent);
+  --color-wwc-yellow: #ffcc00;
+  --color-wwc-green: #009b3a;
   /* Screen size-12: use px — CSS `12pt` renders ~16px and looks oversized */
   --font-size: 12px;
 
+  --icon-filter-accent: brightness(0) saturate(100%) invert(89%) sepia(64%) saturate(449%) hue-rotate(18deg) brightness(104%) contrast(107%);
   --shadow-acrylic: 0 8px 36px rgba(0, 0, 0, 0.15);
   --radius-card: 24px;
   --radius-panel: 16px;

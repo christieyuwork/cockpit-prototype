@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon">
+<g id="Bounding box">
+</g>
+<g id="shape">
+<path d="M18 7.75H6V6.25H18V7.75Z" fill="white"/>
+<path d="M18 10.75H6V9.25H18V10.75Z" fill="white"/>
+<path d="M6 13.75H14V12.25H6V13.75Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.70711 21.9995C2.89464 21.9995 3.0745 21.925 3.20711 21.7924L7 17.9995H18C20.2091 17.9995 22 16.2087 22 13.9995V5.99951C22 3.79037 20.2091 1.99951 18 1.99951H6C3.79086 1.99951 2 3.79037 2 5.99951V21.2924C2 21.6829 2.31658 21.9995 2.70711 21.9995ZM18 15.9995H6.17157L4 18.1711V5.99951C4 4.89494 4.89543 3.99951 6 3.99951H18C19.1046 3.99951 20 4.89494 20 5.99951V13.9995C20 15.1041 19.1046 15.9995 18 15.9995Z" fill="white"/>
+</g>
+</g>
+</svg>
