@@ -56,7 +56,7 @@ function FilterMenu({
       <button type="button" className="chip" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
         {value}
         <span className="icon-box">
-          <img className="icon" src="/assets/chevron-down.svg" alt="" />
+          <img className="icon" src="/assets/icons/arrow-down.svg" alt="" />
         </span>
       </button>
       {open ? (
@@ -159,7 +159,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <button type="button" className="chip" onClick={() => setDateOpen((v) => !v)}>
               {briefDate}
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-down.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-down.svg" alt="" />
               </span>
             </button>
             {dateOpen ? (
@@ -189,7 +189,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
         >
           TOM AGENDA
           <span className="icon-box">
-            <img className="icon" src="/assets/chevron-right.svg" alt="" />
+            <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
           </span>
         </button>
       </div>
@@ -199,7 +199,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
           <h2 className="section-title">
             EXECUTIVE SUMMARY
             <span className="icon-box">
-              <img className="icon" src="/assets/chevron-right.svg" alt="" />
+              <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
             </span>
           </h2>
           <div className="panel__stack">
@@ -217,12 +217,12 @@ export function Dashboard({ compact }: { compact?: boolean }) {
                   onClick={() => flash(`Operational Report ${briefDate} ready`)}
                 >
                   <span className="report-chip__icon">
-                    <img src="/assets/file-icon.svg" alt="" />
+                    <img src="/assets/icons/document.svg" alt="" />
                   </span>
                   <span className="report-chip__label">Operational Report {briefDate}</span>
                   <span className="report-chip__actions">
-                    <img src="/assets/download-icon.svg" alt="" />
-                    <img src="/assets/open-icon.svg" alt="" />
+                    <img src="/assets/icons/download.svg" alt="" />
+                    <img src="/assets/icons/open-in.svg" alt="" />
                   </span>
                 </button>
                 <div className="video-card">
@@ -261,7 +261,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <h2 className="section-title">
               DAILY REPORTS
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </h2>
             <FilterMenu value={reportCity} options={CITY_FILTERS} onChange={(v) => setReportCity(v as typeof reportCity)} />
@@ -269,11 +269,9 @@ export function Dashboard({ compact }: { compact?: boolean }) {
           <div className="panel__block">
             <TabBar tabs={['Stadium', 'Host city', 'Fan fest']} active={reportTab} onChange={setReportTab} />
             <div className="panel__scroll scroll-area">
-              <div className="summary-label">
+              <div className="ai-label">
+                <span className="ai-label__icon" aria-hidden />
                 <span>{report.title}</span>
-                <span className="icon-box">
-                  <img className="icon" src="/assets/sparkle.svg" alt="" />
-                </span>
               </div>
               <p>
                 {reportCity === 'All cities'
@@ -289,7 +287,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <h2 className="section-title">
               ISSUES
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </h2>
             <FilterMenu value={issueCity} options={CITY_FILTERS} onChange={(v) => setIssueCity(v as typeof issueCity)} />
@@ -302,11 +300,11 @@ export function Dashboard({ compact }: { compact?: boolean }) {
                 <div><strong className="is-lime">12</strong> Low (1-2)</div>
               </div>
               <span className="icon-box issues__donut">
-                <img className="icon" src="/assets/donut.svg" alt="" />
+                <img className="icon" src="/assets/icons/data-circle.svg" alt="" />
               </span>
             </div>
             <div className="issues__trend">
-              <img src="/assets/trend.svg" alt="" />
+              <img src="/assets/icons/upward.svg" alt="" />
               <div className="issues__totals">
                 <div><span>Total</span><strong>{filteredIssues.length * 55}</strong></div>
                 <div><span>Today</span><strong>{filteredIssues.length * 4} <em>+18%</em></strong></div>
@@ -325,7 +323,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
                   <span className="issues__row-end">
                     <span className={`city-pill ${row.city.toLowerCase()}`}>{row.city}</span>
                     <span className="icon-box">
-                      <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                      <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
                     </span>
                   </span>
                 </button>
@@ -346,7 +344,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <h2 className="section-title">
               CALENDAR
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </h2>
             <FilterMenu
@@ -383,7 +381,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <h2 className="section-title">
               MATCHES
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </h2>
             <TabBar tabs={['Yesterday', 'Today', 'Tomorrow']} active={matchDay} onChange={setMatchDay} />
@@ -416,7 +414,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
                     >
                       {match.matchId}
                       <span className="icon-box">
-                        <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                        <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
                       </span>
                     </button>
                     <p>{match.time}</p>
@@ -439,7 +437,7 @@ export function Dashboard({ compact }: { compact?: boolean }) {
             <h2 className="section-title">
               SOCIAL
               <span className="icon-box">
-                <img className="icon" src="/assets/chevron-right.svg" alt="" />
+                <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
               </span>
             </h2>
             <button

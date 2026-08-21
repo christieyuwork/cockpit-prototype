@@ -23,6 +23,38 @@
   z-index: 0;
 }
 
+.app-shell.is-custom .app-shell__bg {
+  background:
+    url("/backgrounds/custom-cockpit.svg") center / cover no-repeat,
+    radial-gradient(110% 80% at 15% 0%, #123d4d 0%, transparent 55%),
+    #02080a;
+}
+
+.app-shell[data-cockpit='wwc'] {
+  --font-display: var(--font-display-wwc);
+  --color-title: var(--color-wwc-yellow);
+}
+
+.app-shell[data-cockpit='wwc'] .app-shell__bg {
+  /* Asset is 1024×576 — cover upscales it and softens the geometry. Tile at 1:1 instead. */
+  opacity: 1;
+  background-color: #009b3a;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('/backgrounds/wwc-pattern.png');
+  background-position: center top;
+  background-size: 1024px auto;
+  background-repeat: repeat;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.app-shell[data-cockpit='wwc'] .canvas__title,
+.app-shell[data-cockpit='wwc'] .section-title,
+.app-shell[data-cockpit='wwc'] .mod-config__title {
+  color: var(--color-title);
+}
+
 .app-shell__body {
   position: relative;
   z-index: 1;
@@ -32,10 +64,24 @@
 }
 
 .app-shell__main {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 0;
+  min-height: 0;
   padding: 24px;
   overflow: auto;
+}
+
+.app-shell__main > * {
+  flex: 0 0 auto;
+  min-height: 100%;
+}
+
+/* Screens that own their own gutters (the module picker's tag rail bleeds to the edge). */
+.app-shell__main.is-flush {
+  padding: 0;
+  overflow: hidden;
 }
 
 /* Keep panel mounted so Query chat state persists when closed */

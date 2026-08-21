@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="flight">
+<mask id="mask0_0_224" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+<rect id="Bounding box" width="20" height="20" fill="white"/>
+</mask>
+<g mask="url(#mask0_0_224)">
+<path id="flight_2" d="M5.69353 18.5025V16.205L8.21353 14.45V11.6492L1.49707 14.3308V11.6017L8.21353 6.9102V3.28332C8.21353 2.79179 8.38832 2.37117 8.7379 2.02144C9.08763 1.67186 9.50825 1.49707 9.99978 1.49707C10.4913 1.49707 10.9119 1.67186 11.2617 2.02144C11.6112 2.37117 11.786 2.79179 11.786 3.28332V6.9102L18.5025 11.6017V14.3308L11.786 11.6492V14.45L14.301 16.205V18.5025L9.99978 17.2127L5.69353 18.5025Z" fill="white" fill-opacity="0.75"/>
+</g>
+</g>
+</svg>

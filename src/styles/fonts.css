@@ -53,3 +53,19 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "FWWC2027BrasilRC";
+  src: url("/fonts/fwwc27/FWWC2027BrasilRC-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FWWC2027BrasilRC";
+  src: url("/fonts/fwwc27/FWWC2027BrasilRC-Poster.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

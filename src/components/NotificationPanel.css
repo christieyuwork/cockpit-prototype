@@ -70,7 +70,16 @@
 
 .notif__tabs {
   width: 100%;
-  padding: 0 16px;
+  padding: 2px;
+}
+
+.notif__tabs .tab {
+  height: 32px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .notif__body {

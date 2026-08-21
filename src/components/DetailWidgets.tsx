@@ -110,7 +110,7 @@ export function MatchDetailWidget({ match }: { match: MatchDetail }) {
         <a className="match-id" href={`#match/${match.matchId}`} onClick={(e) => e.preventDefault()}>
           {match.matchId}
           <span className="icon-box">
-            <img className="icon" src="/assets/chevron-right.svg" alt="" />
+            <img className="icon" src="/assets/icons/arrow-right.svg" alt="" />
           </span>
         </a>
       </div>

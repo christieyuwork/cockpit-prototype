@@ -79,6 +79,8 @@ p {
 }
 
 .acrylic-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-black-35);
   backdrop-filter: blur(90px);
   -webkit-backdrop-filter: blur(90px);
@@ -90,14 +92,42 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  height: 26px;
-  padding: 0 4px 0 12px;
+  height: 28px;
+  padding: 2px 4px 2px 8px;
   border-radius: 8px;
   background: var(--color-white-15);
-  backdrop-filter: blur(60px);
-  -webkit-backdrop-filter: blur(60px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.2;
   white-space: nowrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 36px;
+  background: var(--color-accent);
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-primary img {
+  filter: brightness(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .city-pill {
@@ -119,18 +149,27 @@ p {
 .city-pill.la { color: var(--city-la); }
 .city-pill.sea { color: var(--city-sea); }
 .city-pill.phl { color: var(--city-phl); }
+.city-pill.brs { color: #ffcc00; }
+.city-pill.sao { color: #7cfc00; }
+.city-pill.rio { color: #00bcd4; }
 
 .section-title {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  height: 20px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--font-size);
+  font-size: 14px;
   line-height: 1.2;
   color: var(--color-accent);
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.section-title img,
+.match-id img {
+  filter: var(--icon-filter-accent);
 }
 
 .section-title .icon-box {
@@ -155,47 +194,96 @@ img[src*="chevron-"] {
 .tab-bar {
   display: flex;
   align-items: center;
-  height: 36px;
-  padding: 0 8px;
-  border-radius: 8px;
-  background: var(--color-white-15);
-  backdrop-filter: blur(90px);
-  -webkit-backdrop-filter: blur(90px);
-  box-shadow: var(--shadow-acrylic);
+  width: 100%;
+  gap: 2px;
+  min-height: 28px;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .tab {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36px;
-  padding: 8px 16px;
+  min-width: 0;
+  height: 24px;
+  padding: 0 10px;
   border-radius: var(--radius-pill);
-  color: var(--color-white);
-  font-weight: 500;
+  color: var(--color-white-75);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .tab.active {
-  background: var(--color-accent);
-  color: var(--color-black);
+  background: var(--color-white-15);
+  color: var(--color-white);
   font-weight: 700;
 }
 
 .scroll-area {
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 160ms ease;
+}
+
+.scroll-area:hover,
+.scroll-area:focus-within {
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
 .scroll-area::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
+  height: 5px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .scroll-area::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.35);
+  background: transparent;
   border-radius: 100px;
-  border: 3px solid transparent;
-  background-clip: content-box;
+}
+
+.scroll-area:hover::-webkit-scrollbar-thumb,
+.scroll-area:focus-within::-webkit-scrollbar-thumb,
+.scroll-area:active::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.ai-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #75edc1 0%, #dbf44e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ai-label__icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(90deg, #75edc1 0%, #dbf44e 100%);
+  -webkit-mask: url('/assets/icons/ai.svg') center / contain no-repeat;
+  mask: url('/assets/icons/ai.svg') center / contain no-repeat;
 }
