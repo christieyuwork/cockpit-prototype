@@ -1171,13 +1171,7 @@ export function QueryWidgetBundle({
     )
   }
 
-  if (
-    widgets !== 'intent' &&
-    widgets !== 'miami-detail' &&
-    widgets !== 'miami-open-actions' &&
-    widgets !== 'action-only' &&
-    widgets !== 'action-result'
-  ) {
+  if (widgets !== 'intent') {
     return (
       <div className="qw-bundle">
         <ScenarioEvidence widgets={widgets} />

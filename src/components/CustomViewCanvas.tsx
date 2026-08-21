@@ -505,7 +505,15 @@ export function CustomViewCanvas({
   if (view.layout === 'issues') {
     return (
       <div className={`canvas${configuring ? ' is-configuring' : ''}`}>
-        <IssuesPage date={date} onDateChange={setDate} dates={[...BRIEF_DATES]} />
+        <IssuesPage
+          date={date}
+          onDateChange={(value) => {
+            if ((BRIEF_DATES as readonly string[]).includes(value)) {
+              setDate(value as (typeof BRIEF_DATES)[number])
+            }
+          }}
+          dates={[...BRIEF_DATES]}
+        />
         {settingsOpen ? (
           <NewViewModal
             mode="edit"
