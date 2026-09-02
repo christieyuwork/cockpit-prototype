@@ -185,7 +185,7 @@ export type AppView = CustomView & {
   navLabel?: string
   leftAction?: 'tomAgenda'
   /** Full-page layouts that skip the module grid. */
-  layout?: 'grid' | 'issues'
+  layout?: 'grid' | 'issues' | 'exec-report'
 }
 
 /** A module instance positioned on the canvas grid (1-indexed column/row). */
@@ -203,6 +203,7 @@ export type PlacedModule = {
 }
 
 export const ISSUES_PAGE_ID = 'page-issues'
+export const EXEC_REPORT_PAGE_ID = 'page-exec-reporting'
 
 function place(
   viewId: string,
@@ -390,6 +391,18 @@ export const WWC_SYSTEM_VIEWS: AppView[] = [
     title: 'Issues',
     navLabel: 'Issues',
     layout: 'issues',
+    modules: [],
+  },
+]
+
+/** FIFA Corporate: Executive Reporting full-page app only. */
+export const CORPORATE_SYSTEM_VIEWS: AppView[] = [
+  {
+    ...PAGE_META,
+    id: EXEC_REPORT_PAGE_ID,
+    title: 'Executive Reporting',
+    navLabel: 'Executive Reporting',
+    layout: 'exec-report',
     modules: [],
   },
 ]

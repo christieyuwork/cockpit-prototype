@@ -8,7 +8,9 @@ import { CustomViewCanvas } from './components/CustomViewCanvas'
 import { AdminCenter, type AdminSection } from './components/AdminCenter'
 import {
   EXEC_BRIEF_ID,
+  EXEC_REPORT_PAGE_ID,
   ISSUES_PAGE_ID,
+  CORPORATE_SYSTEM_VIEWS,
   SEED_VIEWS,
   SYSTEM_VIEWS,
   WWC_SYSTEM_VIEWS,
@@ -60,35 +62,58 @@ function syncViewsWithTopBar(
   const customs = existing.filter((view) => !view.system)
   const system = settings.topBarPages.map((page) => {
     const isIssues = page.id === 'issues' || page.name === 'Issues'
+    const isExecReport =
+      page.id === 'exec-reporting' || page.name === 'Executive Reporting'
     const match =
       existing.find((view) => view.system && view.id === `${cockpitId}-${page.id}`) ??
       (isIssues
         ? existing.find((view) => view.system && (view.id === ISSUES_PAGE_ID || view.layout === 'issues'))
         : undefined) ??
+      (isExecReport
+        ? existing.find(
+            (view) =>
+              view.system && (view.id === EXEC_REPORT_PAGE_ID || view.layout === 'exec-report'),
+          )
+        : undefined) ??
       existing.find((view) => view.system && view.navLabel === page.name) ??
       existing.find((view) => view.system && view.title === page.name)
     if (match) {
+      const keepId =
+        match.layout === 'issues' ||
+        match.id === ISSUES_PAGE_ID ||
+        match.layout === 'exec-report' ||
+        match.id === EXEC_REPORT_PAGE_ID
       return {
         ...match,
-        id: match.layout === 'issues' || match.id === ISSUES_PAGE_ID
+        id: keepId
           ? match.id
           : match.id.startsWith(`${cockpitId}-`)
             ? match.id
             : `${cockpitId}-${page.id}`,
         title: page.name,
         navLabel: page.name,
-        layout: match.layout ?? (isIssues ? ('issues' as const) : undefined),
+        layout:
+          match.layout ??
+          (isIssues ? ('issues' as const) : isExecReport ? ('exec-report' as const) : undefined),
       }
     }
     return {
-      id: isIssues ? ISSUES_PAGE_ID : `${cockpitId}-${page.id}`,
+      id: isIssues
+        ? ISSUES_PAGE_ID
+        : isExecReport
+          ? EXEC_REPORT_PAGE_ID
+          : `${cockpitId}-${page.id}`,
       title: page.name,
       navLabel: page.name,
       system: true as const,
       visibility: 'Anyone at FIFA' as const,
       sharedWith: [],
       modules: [],
-      layout: isIssues ? ('issues' as const) : undefined,
+      layout: isIssues
+        ? ('issues' as const)
+        : isExecReport
+          ? ('exec-report' as const)
+          : undefined,
     }
   })
   return [...system, ...customs]
@@ -99,7 +124,7 @@ function seedViewsByCockpit(): Record<CockpitId, AppView[]> {
     wc26: cloneViews(),
     wwc: cloneViews(WWC_ALL_VIEWS),
     youth: cloneViews(),
-    corporate: cloneViews(),
+    corporate: cloneViews(CORPORATE_SYSTEM_VIEWS),
   }
 }
 
@@ -329,24 +354,29 @@ function App() {
         onOpenAllCockpits={() => openAdmin(activeProfileId, 'cockpits')}
       />
       <div className="app-shell__body">
-        <Sidebar
-          items={activeSettings?.sidebarItems ?? []}
-          activeId={activeNav === 'Issues' ? 'issues' : undefined}
-          onNavigate={(itemId) => {
-            if (itemId === 'issues') {
-              const page =
-                views.find((view) => view.id === ISSUES_PAGE_ID) ??
-                views.find((view) => view.system && view.navLabel === 'Issues')
-              if (page) {
-                setActiveNav(page.navLabel ?? page.title)
-                setConfiguring(false)
-                setScreen({ name: 'canvas', viewId: page.id })
+        {activeProfileId !== 'corporate' &&
+        (activeSettings?.sidebarItems ?? []).some((item) => item.visible) ? (
+          <Sidebar
+            items={activeSettings?.sidebarItems ?? []}
+            activeId={activeNav === 'Issues' ? 'issues' : undefined}
+            onNavigate={(itemId) => {
+              if (itemId === 'issues') {
+                const page =
+                  views.find((view) => view.id === ISSUES_PAGE_ID) ??
+                  views.find((view) => view.system && view.navLabel === 'Issues')
+                if (page) {
+                  setActiveNav(page.navLabel ?? page.title)
+                  setConfiguring(false)
+                  setScreen({ name: 'canvas', viewId: page.id })
+                }
               }
-            }
-          }}
-        />
+            }}
+          />
+        ) : null}
         <main
-          className={`app-shell__main${screen.name === 'selectModules' ? ' is-flush' : ''}`}
+          className={`app-shell__main${screen.name === 'selectModules' ? ' is-flush' : ''}${
+            activeProfileId === 'corporate' ? ' is-full' : ''
+          }`}
         >
           {screen.name === 'selectModules' && activeView ? (
             <ModulePicker

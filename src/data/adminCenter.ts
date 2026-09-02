@@ -374,12 +374,40 @@ export function wwcCockpitSettings(): CockpitAdminSettings {
   }
 }
 
+/** FIFA Corporate: Executive Reporting only, no sidebar. */
+export function corporateCockpitSettings(): CockpitAdminSettings {
+  return {
+    general: {
+      ...defaultGeneralSettings('FIFA Corporate'),
+      defaultBackgroundImage: '',
+      hostCities: '',
+      teams: '',
+      matches: '',
+      description: 'Cross-tournament executive reporting and upstream triage.',
+    },
+    topBarPages: [
+      {
+        id: 'exec-reporting',
+        name: 'Executive Reporting',
+        visibility: 'Classified',
+        adminRights: 'Owner only',
+        advanced: {
+          ...defaultAdvanced(''),
+          showWeather: false,
+          pageFilters: 'Owner, Topic',
+        },
+      },
+    ],
+    sidebarItems: [],
+  }
+}
+
 export function seedAllCockpitSettings(): Record<CockpitId, CockpitAdminSettings> {
   return {
     wc26: defaultCockpitSettings('World Cup 2026'),
     wwc: wwcCockpitSettings(),
     youth: defaultCockpitSettings('Youth Tournament 2026'),
-    corporate: defaultCockpitSettings('FIFA Corporate'),
+    corporate: corporateCockpitSettings(),
   }
 }
 
