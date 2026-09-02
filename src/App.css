@@ -55,6 +55,12 @@
   color: var(--color-title);
 }
 
+.app-shell[data-cockpit='corporate'] .app-shell__bg {
+  opacity: 1;
+  background: #005291;
+  background-image: none;
+}
+
 .app-shell__body {
   position: relative;
   z-index: 1;

@@ -17,6 +17,7 @@ import {
 import { ModuleBody } from './ModuleBody'
 import { ModuleConfigureModal } from './ModuleConfigureModal'
 import { IssuesPage } from './IssuesPage'
+import { ExecReportingPage } from './ExecReportingPage'
 import { FilterChip } from './FilterChip'
 import type { ModuleConfig } from '../data/moduleConfig'
 import './CustomViewCanvas.css'
@@ -514,6 +515,30 @@ export function CustomViewCanvas({
           }}
           dates={[...BRIEF_DATES]}
         />
+        {settingsOpen ? (
+          <NewViewModal
+            mode="edit"
+            initial={{
+              title: view.title,
+              visibility: view.visibility,
+              sharedWith: view.sharedWith,
+            }}
+            onCancel={() => setSettingsOpen(false)}
+            onSubmit={(draft) => {
+              onSaveSettings(draft)
+              setSettingsOpen(false)
+            }}
+            onDelete={view.system ? undefined : onDeleteView}
+          />
+        ) : null}
+      </div>
+    )
+  }
+
+  if (view.layout === 'exec-report') {
+    return (
+      <div className={`canvas${configuring ? ' is-configuring' : ''}`}>
+        <ExecReportingPage />
         {settingsOpen ? (
           <NewViewModal
             mode="edit"
