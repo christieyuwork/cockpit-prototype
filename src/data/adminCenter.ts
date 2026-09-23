@@ -150,9 +150,16 @@ export const DEFAULT_SIDEBAR_ITEMS: SidebarItemSetting[] = [
   {
     id: 'issues',
     label: 'Issues',
-    icon: '/assets/icons/issues.svg',
+    icon: '/assets/icons/issues.png',
     visible: true,
     advanced: { backgroundImage: '', defaultFilter: 'All cities', notes: '' },
+  },
+  {
+    id: 'reports',
+    label: 'Reports',
+    icon: '/assets/icons/reports.png',
+    visible: true,
+    advanced: { backgroundImage: '', defaultFilter: '', notes: '' },
   },
   {
     id: 'statistics',

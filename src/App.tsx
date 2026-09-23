@@ -10,6 +10,7 @@ import {
   EXEC_BRIEF_ID,
   EXEC_REPORT_PAGE_ID,
   ISSUES_PAGE_ID,
+  REPORTS_PAGE_ID,
   CORPORATE_SYSTEM_VIEWS,
   SEED_VIEWS,
   SYSTEM_VIEWS,
@@ -54,6 +55,28 @@ function emptyViewsFromSettings(cockpitId: CockpitId, settings: CockpitAdminSett
   }))
 }
 
+function isSpecialLayoutView(view: AppView) {
+  return (
+    view.layout === 'issues' ||
+    view.layout === 'reports' ||
+    view.layout === 'exec-report' ||
+    view.id === ISSUES_PAGE_ID ||
+    view.id === REPORTS_PAGE_ID ||
+    view.id === EXEC_REPORT_PAGE_ID
+  )
+}
+
+function sidebarLayoutPages(existing: AppView[]): AppView[] {
+  const issues =
+    existing.find((view) => view.system && (view.id === ISSUES_PAGE_ID || view.layout === 'issues')) ??
+    SYSTEM_VIEWS.find((view) => view.id === ISSUES_PAGE_ID)
+  const reports =
+    existing.find(
+      (view) => view.system && (view.id === REPORTS_PAGE_ID || view.layout === 'reports'),
+    ) ?? SYSTEM_VIEWS.find((view) => view.id === REPORTS_PAGE_ID)
+  return [issues, reports].filter((view): view is AppView => Boolean(view))
+}
+
 function syncViewsWithTopBar(
   cockpitId: CockpitId,
   settings: CockpitAdminSettings,
@@ -62,12 +85,18 @@ function syncViewsWithTopBar(
   const customs = existing.filter((view) => !view.system)
   const system = settings.topBarPages.map((page) => {
     const isIssues = page.id === 'issues' || page.name === 'Issues'
+    const isReports = page.id === 'reports' || page.name === 'Reports'
     const isExecReport =
       page.id === 'exec-reporting' || page.name === 'Executive Reporting'
     const match =
       existing.find((view) => view.system && view.id === `${cockpitId}-${page.id}`) ??
       (isIssues
         ? existing.find((view) => view.system && (view.id === ISSUES_PAGE_ID || view.layout === 'issues'))
+        : undefined) ??
+      (isReports
+        ? existing.find(
+            (view) => view.system && (view.id === REPORTS_PAGE_ID || view.layout === 'reports'),
+          )
         : undefined) ??
       (isExecReport
         ? existing.find(
@@ -78,11 +107,7 @@ function syncViewsWithTopBar(
       existing.find((view) => view.system && view.navLabel === page.name) ??
       existing.find((view) => view.system && view.title === page.name)
     if (match) {
-      const keepId =
-        match.layout === 'issues' ||
-        match.id === ISSUES_PAGE_ID ||
-        match.layout === 'exec-report' ||
-        match.id === EXEC_REPORT_PAGE_ID
+      const keepId = isSpecialLayoutView(match)
       return {
         ...match,
         id: keepId
@@ -94,15 +119,23 @@ function syncViewsWithTopBar(
         navLabel: page.name,
         layout:
           match.layout ??
-          (isIssues ? ('issues' as const) : isExecReport ? ('exec-report' as const) : undefined),
+          (isIssues
+            ? ('issues' as const)
+            : isReports
+              ? ('reports' as const)
+              : isExecReport
+                ? ('exec-report' as const)
+                : undefined),
       }
     }
     return {
       id: isIssues
         ? ISSUES_PAGE_ID
-        : isExecReport
-          ? EXEC_REPORT_PAGE_ID
-          : `${cockpitId}-${page.id}`,
+        : isReports
+          ? REPORTS_PAGE_ID
+          : isExecReport
+            ? EXEC_REPORT_PAGE_ID
+            : `${cockpitId}-${page.id}`,
       title: page.name,
       navLabel: page.name,
       system: true as const,
@@ -111,12 +144,16 @@ function syncViewsWithTopBar(
       modules: [],
       layout: isIssues
         ? ('issues' as const)
-        : isExecReport
-          ? ('exec-report' as const)
-          : undefined,
+        : isReports
+          ? ('reports' as const)
+          : isExecReport
+            ? ('exec-report' as const)
+            : undefined,
     }
   })
-  return [...system, ...customs]
+  const present = new Set(system.map((view) => view.id))
+  const extras = sidebarLayoutPages(existing).filter((view) => !present.has(view.id))
+  return [...system, ...extras, ...customs]
 }
 
 function seedViewsByCockpit(): Record<CockpitId, AppView[]> {
@@ -358,17 +395,22 @@ function App() {
         (activeSettings?.sidebarItems ?? []).some((item) => item.visible) ? (
           <Sidebar
             items={activeSettings?.sidebarItems ?? []}
-            activeId={activeNav === 'Issues' ? 'issues' : undefined}
+            activeId={
+              activeNav === 'Issues' ? 'issues' : activeNav === 'Reports' ? 'reports' : undefined
+            }
             onNavigate={(itemId) => {
-              if (itemId === 'issues') {
-                const page =
-                  views.find((view) => view.id === ISSUES_PAGE_ID) ??
-                  views.find((view) => view.system && view.navLabel === 'Issues')
-                if (page) {
-                  setActiveNav(page.navLabel ?? page.title)
-                  setConfiguring(false)
-                  setScreen({ name: 'canvas', viewId: page.id })
-                }
+              const page =
+                itemId === 'issues'
+                  ? (views.find((view) => view.id === ISSUES_PAGE_ID) ??
+                    views.find((view) => view.system && view.navLabel === 'Issues'))
+                  : itemId === 'reports'
+                    ? (views.find((view) => view.id === REPORTS_PAGE_ID) ??
+                      views.find((view) => view.system && view.navLabel === 'Reports'))
+                    : undefined
+              if (page) {
+                setActiveNav(page.navLabel ?? page.title)
+                setConfiguring(false)
+                setScreen({ name: 'canvas', viewId: page.id })
               }
             }}
           />
