@@ -22,14 +22,15 @@ export function Sidebar({
               type="button"
               className={`sidebar__btn${activeId === item.id ? ' is-active' : ''}`}
               aria-label={item.label}
+              data-tooltip={item.label}
               aria-current={activeId === item.id ? 'page' : undefined}
               onClick={() => onNavigate?.(item.id)}
             >
               <span
                 className="icon-box"
                 style={{
-                  width: item.id === 'live-feed' ? 32 : 28,
-                  height: item.id === 'live-feed' ? 32 : 28,
+                  width: item.id === 'live-feed' ? 32 : item.id === 'issues' || item.id === 'reports' ? 20 : 28,
+                  height: item.id === 'live-feed' ? 32 : item.id === 'issues' || item.id === 'reports' ? 20 : 28,
                 }}
               >
                 <img className="icon" src={item.icon} alt="" />

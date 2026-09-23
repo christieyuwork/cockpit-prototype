@@ -79,6 +79,11 @@
   overflow: auto;
 }
 
+/* Full-page apps manage their own scrolling inside the padded main area. */
+.app-shell__main:has(.canvas--page) {
+  overflow: hidden;
+}
+
 .app-shell__main > * {
   flex: 0 0 auto;
   min-height: 100%;

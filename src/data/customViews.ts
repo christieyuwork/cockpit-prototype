@@ -185,7 +185,7 @@ export type AppView = CustomView & {
   navLabel?: string
   leftAction?: 'tomAgenda'
   /** Full-page layouts that skip the module grid. */
-  layout?: 'grid' | 'issues' | 'exec-report'
+  layout?: 'grid' | 'issues' | 'exec-report' | 'reports'
 }
 
 /** A module instance positioned on the canvas grid (1-indexed column/row). */
@@ -203,6 +203,7 @@ export type PlacedModule = {
 }
 
 export const ISSUES_PAGE_ID = 'page-issues'
+export const REPORTS_PAGE_ID = 'page-reports'
 export const EXEC_REPORT_PAGE_ID = 'page-exec-reporting'
 
 function place(
@@ -380,11 +381,6 @@ export const SYSTEM_VIEWS: AppView[] = [
       { kind: 'attendance', col: 3, row: 6, w: 2, h: 3 },
     ]),
   },
-]
-
-/** Women's World Cup system pages (includes dedicated Issues board). */
-export const WWC_SYSTEM_VIEWS: AppView[] = [
-  ...SYSTEM_VIEWS,
   {
     ...PAGE_META,
     id: ISSUES_PAGE_ID,
@@ -393,7 +389,18 @@ export const WWC_SYSTEM_VIEWS: AppView[] = [
     layout: 'issues',
     modules: [],
   },
+  {
+    ...PAGE_META,
+    id: REPORTS_PAGE_ID,
+    title: 'Reports',
+    navLabel: 'Reports',
+    layout: 'reports',
+    modules: [],
+  },
 ]
+
+/** Women's World Cup system pages (includes dedicated Issues board). */
+export const WWC_SYSTEM_VIEWS: AppView[] = [...SYSTEM_VIEWS]
 
 /** FIFA Corporate: Executive Reporting full-page app only. */
 export const CORPORATE_SYSTEM_VIEWS: AppView[] = [
