@@ -20,6 +20,8 @@ import {
 } from './data/customViews'
 import {
   DEFAULT_COCKPITS,
+  DEFAULT_TIMEZONE,
+  TIMEZONE_OPTIONS,
   newCockpitSettings,
   seedAllCockpitSettings,
   type CockpitAdminSettings,
@@ -220,7 +222,8 @@ function App() {
   const customViews = views.filter((view) => !view.system)
   const activeSettings = cockpitSettings[activeProfileId]
   const navLabels = useMemo(
-    () => activeSettings?.topBarPages.map((page) => page.name) ?? [],
+    () =>
+      activeSettings?.topBarPages.filter((page) => page.visible).map((page) => page.name) ?? [],
     [activeSettings?.topBarPages],
   )
 
@@ -234,7 +237,7 @@ function App() {
   function openCockpitHome(cockpitId: CockpitId) {
     const settings = cockpitSettings[cockpitId]
     const cockpitViews = viewsByCockpit[cockpitId] ?? []
-    const firstName = settings?.topBarPages[0]?.name
+    const firstName = settings?.topBarPages.find((page) => page.visible)?.name
     const page =
       (firstName
         ? cockpitViews.find((view) => view.system && view.navLabel === firstName)
@@ -334,7 +337,7 @@ function App() {
       ...current,
       [id]: emptyViewsFromSettings(id, settings),
     }))
-    openAdmin(id, 'general')
+    openAdmin(id, 'metadata')
   }
 
   function updateAdminSettings(cockpitId: CockpitId, settings: CockpitAdminSettings) {
@@ -387,8 +390,18 @@ function App() {
         cockpits={cockpits}
         activeProfileId={activeProfileId}
         onActiveProfileChange={(id) => openCockpitHome(id)}
-        onOpenAdminCenter={(id) => openAdmin(id, 'general')}
+        onOpenAdminCenter={(id) => openAdmin(id, 'metadata')}
         onOpenAllCockpits={() => openAdmin(activeProfileId, 'cockpits')}
+        defaultTimezone={activeSettings?.general.timezone ?? DEFAULT_TIMEZONE}
+        timezoneOptions={
+          activeSettings
+            ? TIMEZONE_OPTIONS.filter(
+                (option) =>
+                  option.value === activeSettings.general.timezone ||
+                  activeSettings.general.crossTimezones.includes(option.value),
+              )
+            : TIMEZONE_OPTIONS.filter((option) => option.value === DEFAULT_TIMEZONE)
+        }
       />
       <div className="app-shell__body">
         {activeProfileId !== 'corporate' &&

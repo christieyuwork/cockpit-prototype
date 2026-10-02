@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CustomView } from '../data/customViews'
-import type { CockpitId, CockpitProfile } from '../data/adminCenter'
+import {
+  DEFAULT_TIMEZONE,
+  TIMEZONE_OPTIONS,
+  type CockpitId,
+  type CockpitProfile,
+  type LabeledOption,
+} from '../data/adminCenter'
 import './TopBar.css'
-
-const TIMEZONES = ['Time in EST', 'Time in CST', 'Time in PST', 'Time in UTC'] as const
 
 type TopBarProps = {
   notificationsOpen: boolean
@@ -20,6 +24,8 @@ type TopBarProps = {
   onActiveProfileChange: (id: CockpitId) => void
   onOpenAdminCenter: (cockpitId: CockpitId) => void
   onOpenAllCockpits: () => void
+  timezoneOptions?: LabeledOption[]
+  defaultTimezone?: string
 }
 
 export function TopBar({
@@ -37,11 +43,21 @@ export function TopBar({
   onActiveProfileChange,
   onOpenAdminCenter,
   onOpenAllCockpits,
+  timezoneOptions = TIMEZONE_OPTIONS,
+  defaultTimezone = DEFAULT_TIMEZONE,
 }: TopBarProps) {
-  const [timezone, setTimezone] = useState<(typeof TIMEZONES)[number]>('Time in EST')
+  const [timezone, setTimezone] = useState(defaultTimezone)
   const [tzOpen, setTzOpen] = useState(false)
   const [viewsOpen, setViewsOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
+  useEffect(() => {
+    setTimezone(defaultTimezone)
+  }, [defaultTimezone])
+
+  const activeTimezone = timezoneOptions.some((option) => option.value === timezone)
+    ? timezone
+    : defaultTimezone
+
   const viewsRef = useRef<HTMLDivElement>(null)
   const profileRef = useRef<HTMLDivElement>(null)
 
@@ -187,24 +203,24 @@ export function TopBar({
             onClick={() => setTzOpen((v) => !v)}
             aria-expanded={tzOpen}
           >
-            {timezone}
+            {timezoneOptions.find((option) => option.value === activeTimezone)?.label ?? activeTimezone}
             <span className="icon-box">
               <img className="icon" src="/assets/icons/arrow-down.svg" alt="" />
             </span>
           </button>
           {tzOpen ? (
             <div className="topbar__tz-list">
-              {TIMEZONES.map((tz) => (
+              {timezoneOptions.map((option) => (
                 <button
-                  key={tz}
+                  key={option.value}
                   type="button"
-                  className={tz === timezone ? 'is-active' : undefined}
+                  className={option.value === activeTimezone ? 'is-active' : undefined}
                   onClick={() => {
-                    setTimezone(tz)
+                    setTimezone(option.value)
                     setTzOpen(false)
                   }}
                 >
-                  {tz}
+                  {option.label}
                 </button>
               ))}
             </div>

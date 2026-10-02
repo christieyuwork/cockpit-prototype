@@ -1,5 +1,5 @@
 .exec-page {
-  --exec-font: "FIFA Sans", "Noto Sans", sans-serif;
+  --exec-font: var(--font-body);
   --exec-know-today: #f5a623;
   --exec-know-today-bg: rgba(245, 166, 35, 0.18);
   --exec-know-tomorrow: #e6c200;
