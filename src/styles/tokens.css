@@ -28,10 +28,10 @@
   --city-sea: #1ee9b6;
   --city-phl: #82b1ff;
 
-  --font-display: "FWC26", "Noto Sans", sans-serif;
-  --font-display-wwc: "FWWC2027BrasilRC", "FWC26", "Noto Sans", sans-serif;
-  --font-body: "Noto Sans", "FIFA Sans", sans-serif;
-  --font-ui: "Noto Sans", "FIFA Sans", sans-serif;
+  --font-display: "FWC26", "FIFA Sans", sans-serif;
+  --font-display-wwc: "FWWC2027BrasilRC", "FWC26", "FIFA Sans", sans-serif;
+  --font-body: "FIFA Sans", sans-serif;
+  --font-ui: "FIFA Sans", sans-serif;
   --color-title: var(--color-accent);
   --color-wwc-yellow: #ffcc00;
   --color-wwc-green: #009b3a;
